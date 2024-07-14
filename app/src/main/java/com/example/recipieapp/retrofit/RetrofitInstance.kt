@@ -10,7 +10,7 @@ object RetrofitInstance {
         Retrofit.Builder().baseUrl("https://api.spoonacular.com/recipes/")
             .addConverterFactory(GsonConverterFactory.create())
             .build()
-            .create(RecipieApi::class.java)
+            .create(RecipieApi::class.java )
 
 }
 

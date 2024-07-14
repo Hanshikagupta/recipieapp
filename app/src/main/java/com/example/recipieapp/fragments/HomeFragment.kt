@@ -11,6 +11,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.recipieapp.activies.MainActivity
 import com.example.recipieapp.activies.MealActivity
 import com.example.recipieapp.adapter.PopularAdapter
 
@@ -18,13 +19,12 @@ import com.example.recipieapp.adapter.PopularAdapter
 import com.example.recipieapp.databinding.FragmentHomeBinding
 import com.example.recipieapp.pojo.Recipe
 
-import com.example.recipieapp.pojo.RecipieList
 import com.example.recipieapp.viewModel.HomeViewModel
 
 
 class HomeFragment : Fragment() {
 
-    private lateinit var homeMvvam:HomeViewModel
+    private lateinit var viewModel:HomeViewModel
     private lateinit var binding: FragmentHomeBinding
     private lateinit var popularItemAdapter: PopularAdapter
     private lateinit var randomMeal :Recipe
@@ -39,7 +39,7 @@ class HomeFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
+         viewModel=(activity as MainActivity).viewModel
         popularItemAdapter = PopularAdapter()
     }
 
@@ -54,14 +54,16 @@ class HomeFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        homeMvvam = androidx.lifecycle.ViewModelProvider(this).get(HomeViewModel::class.java)
         preparePopularItemsRecyclerView()
-       homeMvvam.getRandomMeal()
+       viewModel.getRandomMeal()
         observePopularItemLiveData()
         onPopularItemClick()
 
 
+
+
     }
+
 
 
 
@@ -84,7 +86,7 @@ class HomeFragment : Fragment() {
     }
 
     private fun observePopularItemLiveData() {
-       homeMvvam.observeItemLiveData().observe(viewLifecycleOwner,
+       viewModel.observeItemLiveData().observe(viewLifecycleOwner,
         {
             mealList ->
             popularItemAdapter.setMeals(mealsList = mealList as ArrayList<Recipe>)

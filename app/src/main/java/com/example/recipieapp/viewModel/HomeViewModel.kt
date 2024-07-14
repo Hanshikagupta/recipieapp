@@ -4,6 +4,9 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.example.recipieapp.dp.RecipeDataBase
+import com.example.recipieapp.pojo.IngradientList
+import com.example.recipieapp.pojo.IngredientX
 import com.example.recipieapp.pojo.Recipe
 import com.example.recipieapp.pojo.RecipieList
 import com.example.recipieapp.retrofit.RetrofitInstance
@@ -11,8 +14,11 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class HomeViewModel:ViewModel() {
+class HomeViewModel(private val recipeDataBase: RecipeDataBase):ViewModel() {
     private var randomMealLiveData =MutableLiveData<List<Recipe>>()
+    private var favoriteRecipeLiveData= recipeDataBase.recipeDao().getAllRecipe()
+
+
     fun getRandomMeal(){
         RetrofitInstance.api.getRandomRecipie().enqueue(object : Callback<RecipieList> {
             override fun onResponse(call: Call<RecipieList>, response: Response<RecipieList>) {
@@ -32,7 +38,13 @@ class HomeViewModel:ViewModel() {
 
         })
     }
+
+
     fun observeItemLiveData():LiveData<List<Recipe>>{
         return randomMealLiveData
     }
+    fun observefavoriteRecipeLiveData():LiveData<List<Recipe>>{
+        return favoriteRecipeLiveData
+    }
+
 }

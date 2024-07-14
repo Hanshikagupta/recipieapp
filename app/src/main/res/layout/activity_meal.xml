@@ -41,6 +41,7 @@
         android:src="@drawable/baseline_favorite_24"
         android:backgroundTint="@color/white"
         app:tint="#FA6A3D"
+        android:id="@+id/fav"
         app:layout_anchor="@id/appbar"
         app:layout_anchorGravity="top|end"
         android:layout_marginTop="8dp"
@@ -93,7 +94,7 @@
                             app:layout_constraintVertical_bias="0.024" />
 
                         <TextView
-                            android:id="@+id/textView2"
+                            android:id="@+id/readyin"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="10dp"
@@ -132,17 +133,16 @@
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent"
-                            app:layout_constraintVertical_bias="0.024" />
+                            app:layout_constraintVertical_bias="0.024"/>
 
                         <TextView
-                            android:id="@+id/textView6"
+                            android:id="@+id/serving"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="10dp"
                             android:text="6"
                             android:textColor="#FA6A3D"
                             android:textSize="20dp"
-
                             app:layout_constraintEnd_toEndOf="@+id/textView8"
                             app:layout_constraintStart_toStartOf="@+id/textView8"
                             app:layout_constraintTop_toBottomOf="@+id/textView8" />
@@ -178,7 +178,7 @@
                             app:layout_constraintVertical_bias="0.024" />
 
                         <TextView
-                            android:id="@+id/textView12"
+                            android:id="@+id/price"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="10dp"
@@ -218,8 +218,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/ingra"
-                >
+                app:layout_constraintTop_toBottomOf="@id/ingra">
 
 
             </androidx.recyclerview.widget.RecyclerView>
@@ -239,12 +238,86 @@
 
             <TextView
                 android:id="@+id/instruction"
-                android:textStyle="14sp"
+
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/textinstruction" />
+
+            <TextView
+                android:id="@+id/textequipment"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:text="Equipments"
+                android:textColor="@color/black"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="@+id/textinstruction"
+                app:layout_constraintStart_toStartOf="@+id/textinstruction"
+                app:layout_constraintTop_toBottomOf="@id/instruction" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerequipment"
+                android:layout_width="409dp"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/textequipment"
+                app:layout_constraintTop_toBottomOf="@id/textequipment"/>
+
+            <TextView
+                android:id="@+id/textsummary"
+                android:text="Summary"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:textColor="@color/black"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:layout_marginTop="12dp"
+
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/recyclerequipment" />
+
+            <TextView
+                android:id="@+id/summary"
+android:textColor="@color/black"
+                android:textSize="14dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/textsummary" />
+            <TextView
+                android:id="@+id/textnutrition"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/black"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:layout_marginTop="12dp"
+                app:layout_constraintTop_toBottomOf="@id/summary"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:text="Nutrition"/>
+            <TextView
+            android:id="@+id/nutrition"
+            android:textColor="@color/black"
+            android:textSize="14dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+                android:layout_marginTop="12dp"
+                app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/textnutrition" />
+
 
 
 
