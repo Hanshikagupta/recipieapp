@@ -1,18 +1,22 @@
 package com.example.recipieapp.activies
 
 import android.os.Bundle
+import android.text.Html
+import android.text.Spanned
 import android.util.Log
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 
 
 import com.bumptech.glide.Glide
 import com.example.recipieapp.adapter.IngradientAdapter
 import com.example.recipieapp.adapter.EquipmentAdapter
+import com.example.recipieapp.adapter.NutrientsAdapter
 
 import com.example.recipieapp.databinding.ActivityMealBinding
 import com.example.recipieapp.dp.RecipeDataBase
@@ -30,6 +34,7 @@ class MealActivity : AppCompatActivity()
     private lateinit var mealmvvm: MealViewModel
     private lateinit var ingradientAdapter: IngradientAdapter
     private lateinit var equipmentAdapter: EquipmentAdapter
+    private lateinit var nutrientAdapter:NutrientsAdapter
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -37,6 +42,7 @@ class MealActivity : AppCompatActivity()
         setContentView(binding.root)
         ingradientAdapter=IngradientAdapter()
         equipmentAdapter= EquipmentAdapter()
+        nutrientAdapter=NutrientsAdapter()
         val recipeDataBase =RecipeDataBase.getInstance(this)
         val viewModelFactory =RecipeViewModelFactory(recipeDataBase)
         mealmvvm = ViewModelProvider(this,viewModelFactory)[MealViewModel::class.java]
@@ -60,10 +66,19 @@ class MealActivity : AppCompatActivity()
 mealmvvm.getSummary(mealid)
         observeSummaryLiveData()
 
+        prepareNutrientRecyclerView()
         mealmvvm.getNutrition(mealid)
         observeNutritionLiveData()
 
+        mealmvvm.getTaste(mealid)
+        observeTasteLiveData()
 
+    }
+
+    private fun observeTasteLiveData() {
+        mealmvvm.observeTasteLiveData().observe(this, Observer { taste->
+            binding.taste.text=taste.toString()
+        })
     }
 
     private fun onFavoriteClick() {
@@ -77,11 +92,18 @@ mealmvvm.getSummary(mealid)
 
     private var recipeToSave:Recipe?=null
 
+    private fun prepareNutrientRecyclerView(){
+        binding.nutritionrecycler.apply {
+            layoutManager= GridLayoutManager(context,2, GridLayoutManager.VERTICAL,false)
+            adapter=nutrientAdapter
+        }
+    }
     private fun observeNutritionLiveData() {
         mealmvvm.observeNutritionLivedata().observe(this, Observer { nutrition ->
-            binding.nutrition.text = nutrition.toString()
+            nutrientAdapter.setNutrientList(nutrition)
         })
     }
+
 
     private fun observeSummaryLiveData() {
         mealmvvm.observeSummaryLiveData().observe(this, Observer { summary ->
@@ -118,7 +140,14 @@ mealmvvm.getSummary(mealid)
 
         })
     }
-
+    fun String.toSpanned(): Spanned {
+        return if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
+            Html.fromHtml(this, Html.FROM_HTML_MODE_LEGACY)
+        } else {
+            @Suppress("DEPRECATION")
+            Html.fromHtml(this)
+        }
+    }
 
     private fun observerMealDetailsLiveData() {
         mealmvvm.observerMealDetailsLiveData().observe(this,object :Observer<Recipe> {
@@ -130,10 +159,10 @@ mealmvvm.getSummary(mealid)
 
                 val meal=value
                 recipeToSave=meal
-                binding.readyin.text = "Time: ${meal.readyInMinutes}"
-                binding.serving.text = "Serving: ${meal.servings}"
-                binding.price.text = "Price: ${meal.pricePerServing}"
-                binding.instruction.text = "${meal.instructions}"
+                binding.readyin.text = "${meal.readyInMinutes}"
+                binding.serving.text = "${meal.servings}"
+                binding.price.text = "${meal.pricePerServing}"
+                binding.instruction.text = "${meal.instructions?.toSpanned()}"
             }
 
         })

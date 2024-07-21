@@ -9,8 +9,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.recipieapp.R
 import com.example.recipieapp.activies.MainActivity
 import com.example.recipieapp.activies.MealActivity
 import com.example.recipieapp.adapter.PopularAdapter
@@ -55,16 +57,21 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         preparePopularItemsRecyclerView()
-       viewModel.getRandomMeal()
+
         observePopularItemLiveData()
         onPopularItemClick()
 
-
+onSearchIconClick()
 
 
     }
 
+    private fun onSearchIconClick() {
 
+        binding.searchView.setOnClickListener {
+            findNavController().navigate(R.id.action_homeFragment_to_searchFragment)
+        }
+    }
 
 
     private fun onPopularItemClick() {
