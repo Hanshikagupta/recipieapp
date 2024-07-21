@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".SearchFragment">
+
+    <LinearLayout
+        android:id="@+id/linearsearch"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:orientation="horizontal"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginStart="5dp"
+        android:layout_marginEnd="5dp"
+
+        android:layout_marginTop="5dp">
+
+        <EditText
+            android:layout_width="0dp"
+            android:hint="Search Recipe"
+            android:maxLines="1"
+            android:layout_height="50dp"
+            android:id="@+id/edit_search"
+            android:layout_weight="1"
+            android:background="@drawable/search_background"
+            android:paddingStart="15dp"
+            android:paddingEnd="15dp"/>
+        <ImageView
+            android:id="@+id/img_search"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:src="@drawable/baseline_arrow_forward_24"
+            android:layout_gravity="center"
+            app:tint="#E4E4E4" />
+
+    </LinearLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerSearch"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="5dp"
+
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearsearch" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+
+
